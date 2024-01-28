@@ -4,9 +4,15 @@ interface Props {
   author: string;
   message: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const MessageForm: React.FC<Props> = ({author, message, handleChange}) => {
+const MessageForm: React.FC<Props> = ({
+  author,
+  message,
+  handleChange,
+  handleSubmit,
+}) => {
   return (
     <form>
       <label htmlFor='author'>Author:</label>
@@ -27,7 +33,11 @@ const MessageForm: React.FC<Props> = ({author, message, handleChange}) => {
         value={message}
         onChange={(e) => handleChange(e)}
       />
-      <button type='submit' className='btn btn-primary mt-2'>
+      <button
+        type='submit'
+        className='btn btn-primary mt-2'
+        onClick={(e) => handleSubmit(e)}
+      >
         Send message
       </button>
     </form>
