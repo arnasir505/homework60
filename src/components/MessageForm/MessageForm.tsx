@@ -14,20 +14,24 @@ const MessageForm: React.FC<Props> = ({
   handleSubmit,
 }) => {
   return (
-    <form>
-      <label htmlFor='author'>Author:</label>
+    <form className='d-flex align-items-center gap-2 mt-2'>
+      <label htmlFor='author' className='text-white'>
+        Author:
+      </label>
       <input
         type='text'
-        className='form-control'
+        className='form-control bg-dark text-white'
         name='author'
         id='author'
         value={author}
         onChange={(e) => handleChange(e)}
       />
-      <label htmlFor='message'>Message:</label>
+      <label htmlFor='message' className='text-white'>
+        Message:
+      </label>
       <input
         type='text'
-        className='form-control'
+        className='form-control bg-dark text-white'
         name='message'
         id='message'
         value={message}
@@ -35,10 +39,10 @@ const MessageForm: React.FC<Props> = ({
       />
       <button
         type='submit'
-        className='btn btn-primary mt-2'
+        className='btn btn-primary'
         onClick={(e) => handleSubmit(e)}
       >
-        Send message
+        SEND
       </button>
     </form>
   );

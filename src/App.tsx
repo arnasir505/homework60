@@ -37,7 +37,6 @@ function App() {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
-
   const handleFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const data = new URLSearchParams();
