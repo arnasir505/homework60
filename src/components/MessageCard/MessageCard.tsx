@@ -18,7 +18,7 @@ const MessageCard: React.FC<Props> = ({ author, message, datetime }) => {
   };
 
   return (
-    <div className='card mb-3 text-white bg-semidark'>
+    <div className='card mb-3 text-light bg-semidark'>
       <div className='card-body'>
         <h5 className='card-title d-inline-block'>{author}</h5>
         <h6 className='card-subtitle text-white-50 d-inline-block ms-2 fw-normal'>

@@ -12,6 +12,7 @@ function App() {
     message: '',
   });
   const [lastMsgDate, setLastMsgDate] = useState('');
+  let interval: number;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,15 +22,18 @@ function App() {
       setMessages(messagesData);
     };
     fetchData();
-    scrollToLastMsg();
+    setTimeout(() => {
+      scrollToLastMsg();
+    }, 2000);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    interval = setInterval(async () => {
       const response = await fetch(`${url}/?datetime=${lastMsgDate}`);
       const newMessagesData = await response.json();
       setMessages(newMessagesData);
-    }, 2000);
+      scrollToLastMsg();
+    }, 1000);
   }, []);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +43,11 @@ function App() {
   };
   const handleFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    clearInterval(interval);
     const data = new URLSearchParams();
     data.set('message', userMessage.message);
     data.set('author', userMessage.author);
-    const response = await fetch(url, {
+    fetch(url, {
       method: 'post',
       body: data,
     });
@@ -59,14 +64,20 @@ function App() {
     <div className='container pt-3'>
       <div className='row messages'>
         <div className='col' ref={ref}>
-          {messages.map((msg) => (
-            <MessageCard
-              author={msg.author}
-              message={msg.message}
-              datetime={msg.datetime}
-              key={msg._id}
-            />
-          ))}
+          {messages.length > 0 ? (
+            messages.map((msg) => (
+              <MessageCard
+                author={msg.author}
+                message={msg.message}
+                datetime={msg.datetime}
+                key={msg._id}
+              />
+            ))
+          ) : (
+            <div className='d-flex justify-content-center py-5'>
+              <div className='spinner-border text-light'></div>
+            </div>
+          )}
         </div>
       </div>
       <div className='row'>
